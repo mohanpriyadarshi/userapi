@@ -8,6 +8,8 @@ import (
 	"userapi/handler"
 )
 
+// main initializes the database, creates the HTTP handler, registers routes,
+// and starts the API server on port 8080.
 func main() {
 	database, err := db.Open("users.db")
 	if err != nil {

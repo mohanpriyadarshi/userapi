@@ -71,6 +71,20 @@ func (h *Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusCreated, user)
 }
 
+func (h *Handler) GetUserByEmail(w http.ResponseWriter, r *http.Request) {
+	email := r.PathValue("email")
+	_, user, err := h.DB.GetUserByEmail(email)
+	if err == sql.ErrNoRows {
+		respondError(w, http.StatusNotFound, "user not found")
+		return
+	}
+	if err != nil {
+		respondError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	respondJSON(w, http.StatusOK, user)
+}
+
 // GetUser handles GET /users/{id} and returns the user for the provided ID.
 func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseInt(r.PathValue("id"), 10, 64)

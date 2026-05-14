@@ -23,6 +23,7 @@ func main() {
 	mux.HandleFunc("GET /users", h.ListUsers)
 	mux.HandleFunc("POST /users", h.CreateUser)
 	mux.HandleFunc("GET /users/{id}", h.GetUser)
+	mux.HandleFunc("GET /users/email/{email}", h.GetUserByEmail)
 	mux.HandleFunc("PUT /users/{id}", h.UpdateUser)
 	mux.HandleFunc("DELETE /users/{id}", h.DeleteUser)
 	mux.HandleFunc("POST /login", h.Login)
